@@ -1,0 +1,43 @@
+<template>    
+   <lightning-button variant="brand-outline" label="Details Preview" title="Details Preview" onclick={openModal} class="slds-m-left_x-small"></lightning-button> 
+      <template if:true={bShowModal}>
+       <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">            
+             <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                   <lightning-icon icon-name="utility:close"
+                      alternative-text="close"
+                      variant="inverse"
+                      size="small" ></lightning-icon>
+                   <span class="slds-assistive-text">Close</span>
+                </button>                
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Quote Details Preview</h2>
+             </header>
+             <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+               <lightning-record-view-form
+               record-id={recordId}
+               object-api-name="Quote__c">
+               <lightning-output-field field-name="Name"></lightning-output-field>
+               <lightning-output-field field-name="Lead__c"></lightning-output-field>
+               <lightning-output-field field-name="Total_Quote_Price__c"></lightning-output-field>
+               </lightning-record-view-form>
+               <div class="slds-text-heading_small">Products</div>
+            </div>
+            <template if:true={parameters.data}>
+               <lightning-datatable 
+               key-field="id"
+               data={parameters.data}
+               row-number-offset={rowOffset}
+               hide-checkbox-column="true"
+               columns={columns}>
+              </lightning-datatable>
+            </template>
+             <footer class="slds-modal__footer">
+                <lightning-button variant="brand" label="Send" onclick={sendQuoteDetails} title="Primary action" class="slds-m-left_x-small" style="float: left;"></lightning-button>
+                <button class="slds-button slds-button_neutral" onclick={closeModal}>Close</button>                
+             </footer>
+          </div>
+       </section>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ </template>
